@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  
+  --color-rose-gold: #d97706; /* Warm Gold / Amber (matches her gold embroidery & sunlit glow) */
+  --color-rose-gold-dark: #9f1239; /* Deep Crimson / Maroon (matches her beautiful red saree) */
+  --color-pastel-pink: #ffe4e6; /* Warm Rose / Pale Pink */
+  --color-pastel-pink-dark: #fecdd3; /* Soft Rose Dark */
+  --color-soft-cream: #fffdf9; /* Warm Ivory / Cream */
+  --color-teal-accent: #16a34a; /* Emerald / Natural Green (matches the green leaves in her photo) */
+  --color-teal-accent-dark: #15803d; /* Deep Forest Green */
+  
+  --animate-gradient-flow: gradient-flow 15s ease infinite;
+  --animate-float: float-particle 6s ease-in-out infinite;
+  --animate-shake: shake-input 0.4s ease-in-out;
+  --animate-subtle-spin: subtle-spin 20s linear infinite;
+
+  @keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes float-particle {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-20px) scale(1.1); opacity: 0.8; }
+  }
+  @keyframes shake-input {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+  @keyframes subtle-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+/* Custom Base Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  background: var(--color-soft-cream);
+  color: #4b5563; /* text-gray-600 */
+}
+
+/* Overriding Vite default center container */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  min-height: 100vh;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Custom Utility Classes */
+.pastel-gradient-bg {
+  background: linear-gradient(-45deg, #fffdf9, #ffe4e6, #fef3c7, #fffdfb);
+  background-size: 400% 400%;
+  animation: var(--animate-gradient-flow);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #9f1239 0%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.polaroid-shadow {
+  box-shadow: 0 15px 35px rgba(159, 18, 57, 0.12), 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Floating Balloons Animation */
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-20vh) scale(0.9) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.animate-balloon {
+  animation: floatUp 8s linear forwards;
+}
+
+/* Drip frosting effect on cake */
+.frosting-drip {
+  border-radius: 0 0 10px 10px;
+}
