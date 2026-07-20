@@ -4,16 +4,18 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Outfit", system-ui, sans-serif;
   
-  --color-rose-gold: #d97706; /* Warm Gold / Amber (matches her gold embroidery & sunlit glow) */
-  --color-rose-gold-dark: #9f1239; /* Deep Crimson / Maroon (matches her beautiful red saree) */
+  --color-rose-gold: #d97706; /* Warm Gold / Amber */
+  --color-rose-gold-dark: #9f1239; /* Deep Crimson / Maroon */
   --color-pastel-pink: #ffe4e6; /* Warm Rose / Pale Pink */
   --color-pastel-pink-dark: #fecdd3; /* Soft Rose Dark */
-  --color-soft-cream: #fffdf9; /* Warm Ivory / Cream */
-  --color-teal-accent: #16a34a; /* Emerald / Natural Green (matches the green leaves in her photo) */
+  --color-soft-cream: #fffdf9; /* Warm Ivory */
+  --color-teal-accent: #16a34a; /* Emerald Green */
   --color-teal-accent-dark: #15803d; /* Deep Forest Green */
   
-  --animate-gradient-flow: gradient-flow 15s ease infinite;
-  --animate-float: float-particle 6s ease-in-out infinite;
+  --animate-gradient-flow: gradient-flow 20s ease infinite;
+  --animate-float: float-card 8s ease-in-out infinite;
+  --animate-float-slow: float-blob 25s ease-in-out infinite;
+  --animate-float-slow-reverse: float-blob-reverse 30s ease-in-out infinite;
   --animate-shake: shake-input 0.4s ease-in-out;
   --animate-subtle-spin: subtle-spin 20s linear infinite;
 
@@ -22,9 +24,18 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  @keyframes float-particle {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
-    50% { transform: translateY(-20px) scale(1.1); opacity: 0.8; }
+  @keyframes float-card {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-10px) rotate(0deg); }
+  }
+  @keyframes float-blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+  @keyframes float-blob-reverse {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, 40px) scale(1.15); }
   }
   @keyframes shake-input {
     0%, 100% { transform: translateX(0); }
@@ -44,7 +55,7 @@ html, body {
   min-height: 100vh;
   font-family: var(--font-sans);
   background: var(--color-soft-cream);
-  color: #4b5563; /* text-gray-600 */
+  color: #374151; /* text-gray-700 */
 }
 
 /* Overriding Vite default center container */
@@ -60,26 +71,47 @@ html, body {
 
 /* Custom Utility Classes */
 .pastel-gradient-bg {
-  background: linear-gradient(-45deg, #fffdf9, #ffe4e6, #fef3c7, #fffdfb);
+  background: linear-gradient(-45deg, #fffdf9, #fff0f3, #fffbeb, #ffe4e6);
   background-size: 400% 400%;
   animation: var(--animate-gradient-flow);
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #9f1239 0%, #d97706 100%);
+  background: linear-gradient(135deg, #9f1239 0%, #d97706 50%, #b45309 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.text-shimmer {
+  background-image: linear-gradient(90deg, #9f1239, #d97706, #9f1239);
+  background-size: 200% auto;
+  color: #9f1239;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.glassmorphism-luxury {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 50px rgba(159, 18, 57, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .polaroid-shadow {
-  box-shadow: 0 15px 35px rgba(159, 18, 57, 0.12), 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 25px 50px -12px rgba(159, 18, 57, 0.15), 0 0 40px rgba(217, 119, 6, 0.08);
 }
 
 /* Floating Balloons Animation */
@@ -101,7 +133,29 @@ html, body {
   animation: floatUp 8s linear forwards;
 }
 
-/* Drip frosting effect on cake */
-.frosting-drip {
-  border-radius: 0 0 10px 10px;
+/* Foil / Golden Metallic Accent */
+.gold-foil {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 30%, #fef3c7 70%, #b45309 100%);
+  box-shadow: 0 2px 5px rgba(180, 83, 9, 0.3);
+}
+
+/* Pulse Glows */
+.pulse-glow-rose {
+  box-shadow: 0 0 30px rgba(159, 18, 57, 0.2);
+  animation: glow-rose 2s infinite alternate;
+}
+
+@keyframes glow-rose {
+  from { box-shadow: 0 0 15px rgba(159, 18, 57, 0.15); }
+  to { box-shadow: 0 0 35px rgba(159, 18, 57, 0.35); }
+}
+
+/* Audio Waveform animation */
+.waveform-bar {
+  display: inline-block;
+  width: 3px;
+  background-color: var(--color-rose-gold-dark);
+  margin: 0 2px;
+  border-radius: 3px;
+  transition: height 0.08s ease;
 }

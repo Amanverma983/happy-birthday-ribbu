@@ -28,21 +28,21 @@ function ConfettiCanvas({ trigger }) {
     const particles = []
 
     // Spawn massive confetti blast
-    const count = window.innerWidth < 768 ? 100 : 200
+    const count = window.innerWidth < 768 ? 120 : 250
     for (let i = 0; i < count; i++) {
       particles.push({
         x: canvas.width / 2,
-        y: canvas.height * 0.7,
+        y: canvas.height * 0.75,
         radius: Math.random() * 6 + 4,
         color: colors[Math.floor(Math.random() * colors.length)],
-        vx: (Math.random() - 0.5) * (window.innerWidth < 768 ? 12 : 22),
-        vy: -Math.random() * 18 - 10,
-        gravity: 0.35,
-        drag: 0.96,
+        vx: (Math.random() - 0.5) * (window.innerWidth < 768 ? 14 : 24),
+        vy: -Math.random() * 20 - 12,
+        gravity: 0.32,
+        drag: 0.965,
         rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 8,
+        rotationSpeed: (Math.random() - 0.5) * 10,
         opacity: 1,
-        fadeSpeed: Math.random() * 0.008 + 0.004,
+        fadeSpeed: Math.random() * 0.007 + 0.003,
         shape: Math.random() > 0.4 ? 'circle' : 'square',
       })
     }
@@ -120,23 +120,23 @@ function AmbientBackground() {
 
     const particles = []
     const colors = [
-      'rgba(217, 119, 6, 0.15)',  // Gold
-      'rgba(159, 18, 57, 0.12)',  // Crimson
-      'rgba(254, 228, 230, 0.3)',  // Warm Rose
-      'rgba(22, 163, 74, 0.1)',    // Emerald Green
+      'rgba(217, 119, 6, 0.18)',  // Gold
+      'rgba(159, 18, 57, 0.15)',  // Crimson
+      'rgba(254, 228, 230, 0.35)', // Warm Rose
+      'rgba(22, 163, 74, 0.12)',   // Emerald Green
     ]
 
-    const count = window.innerWidth < 768 ? 20 : 45
+    const count = window.innerWidth < 768 ? 25 : 55
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 4 + 1.5,
+        radius: Math.random() * 4.5 + 1.5,
         color: colors[Math.floor(Math.random() * colors.length)],
-        speedY: Math.random() * 0.4 + 0.1,
-        speedX: (Math.random() - 0.5) * 0.15,
-        pulseSpeed: Math.random() * 0.015 + 0.005,
-        alpha: Math.random() * 0.6 + 0.2,
+        speedY: Math.random() * 0.35 + 0.08,
+        speedX: (Math.random() - 0.5) * 0.12,
+        pulseSpeed: Math.random() * 0.012 + 0.004,
+        alpha: Math.random() * 0.65 + 0.15,
         pulseDir: Math.random() > 0.5 ? 1 : -1,
       })
     }
@@ -164,7 +164,7 @@ function AmbientBackground() {
         }
 
         ctx.save()
-        ctx.globalAlpha = Math.max(0.1, Math.min(0.9, p.alpha))
+        ctx.globalAlpha = Math.max(0.1, Math.min(0.95, p.alpha))
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
         ctx.fillStyle = p.color
@@ -211,7 +211,7 @@ function CursorHeartTrail() {
         color: ['#9f1239', '#d97706', '#ffe4e6', '#fecdd3'][Math.floor(Math.random() * 4)],
         rotate: Math.random() * 360,
       }
-      setTrail((prev) => [...prev.slice(-15), newHeart]) // Limit to max 15 active hearts
+      setTrail((prev) => [...prev.slice(-15), newHeart])
     }
 
     const handleMouseMove = (e) => {
@@ -262,7 +262,7 @@ function App() {
   const [shake, setShake] = useState(false)
   const [activeModal, setActiveModal] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [currentBgm, setCurrentBgm] = useState('instrumental') // 'instrumental' or 'vocals'
+  const [currentBgm, setCurrentBgm] = useState('instrumental')
   
   // Audio sources and fallbacks
   const [bgmSource, setBgmSource] = useState("https://raw.githubusercontent.com/ayusharma/birthday/master/hbd.mp3")
@@ -308,7 +308,7 @@ function App() {
       title: 'A Radiant Energy',
       desc: 'Tapping into the vibe that lights up every room...',
       detail: 'Your smile lights up the room, and your energy makes everything better. Never change! ✨',
-      color: 'border-pink-200 bg-pink-50/50 hover:bg-pink-100/50 text-pink-900',
+      color: 'border-pink-200 bg-pink-50/40 hover:bg-pink-100/40 text-pink-900',
     },
     {
       id: 2,
@@ -316,7 +316,7 @@ function App() {
       title: 'Limitless Dreams',
       desc: 'A message dedicated to your goals and happiness...',
       detail: 'To watching you crush every single goal, conquer your dreams, and stay incredibly happy this year! 🚀',
-      color: 'border-amber-200 bg-amber-50/50 hover:bg-amber-100/50 text-amber-900',
+      color: 'border-amber-200 bg-amber-50/40 hover:bg-amber-100/40 text-amber-900',
     },
     {
       id: 3,
@@ -324,7 +324,7 @@ function App() {
       title: 'Always There',
       desc: 'A quiet vow of unwavering support and love...',
       detail: "No matter how old you get today, you'll always be the number one priority. Always here for you. ❤️",
-      color: 'border-teal-200 bg-teal-50/50 hover:bg-teal-100/50 text-teal-950',
+      color: 'border-emerald-200 bg-emerald-50/40 hover:bg-emerald-100/40 text-emerald-950',
     },
   ]
 
@@ -520,16 +520,16 @@ function App() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+      transition: { staggerChildren: 0.12, delayChildren: 0.2 },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+      transition: { type: 'spring', damping: 20, stiffness: 100 },
     },
   }
 
@@ -542,6 +542,11 @@ function App() {
         loop 
         onError={handleAudioError}
       />
+
+      {/* Luxury Background Blurred Blobs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-pink-200/40 rounded-full filter blur-[100px] animate-float-slow pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-amber-100/50 rounded-full filter blur-[120px] animate-float-slow-reverse pointer-events-none" />
+      <div className="absolute top-[40%] right-[10%] w-[35%] h-[35%] bg-emerald-100/30 rounded-full filter blur-[90px] pointer-events-none" />
       
       {/* Ambient particles background */}
       <AmbientBackground />
@@ -583,18 +588,18 @@ function App() {
             className="fixed inset-0 z-40 flex items-center justify-center p-4"
           >
             <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              initial={{ opacity: 0, y: 60, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ type: 'spring', damping: 25, stiffness: 120 }}
-              className={`glassmorphism w-full max-w-md rounded-3xl p-8 shadow-2xl border border-white/40 ${
+              className={`glassmorphism-luxury w-full max-w-md rounded-3xl p-8 md:p-10 shadow-2xl ${
                 shake ? 'animate-shake' : ''
               }`}
             >
               <div className="flex flex-col items-center text-center">
                 <motion.div 
-                  animate={{ scale: [1, 1.08, 1] }} 
-                  transition={{ repeat: Infinity, duration: 2 }}
-                  className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-pink-100/80 text-3xl shadow-inner"
+                  animate={{ scale: [1, 1.12, 1], rotate: [0, 5, -5, 0] }} 
+                  transition={{ repeat: Infinity, duration: 2.5 }}
+                  className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-pink-100/90 text-2xl shadow-inner border border-white/60 pulse-glow-rose"
                 >
                   🔒
                 </motion.div>
@@ -614,7 +619,7 @@ function App() {
                       value={unlockInput}
                       onChange={(e) => setUnlockInput(e.target.value)}
                       placeholder="Enter the secret name he calls you..."
-                      className="w-full rounded-2xl border border-gray-200 bg-white/70 px-5 py-4 text-center text-gray-700 placeholder-gray-400 outline-none transition-all focus:border-rose-gold focus:bg-white focus:ring-2 focus:ring-rose-gold/20"
+                      className="w-full rounded-2xl border border-gray-200 bg-white/70 px-5 py-4 text-center text-gray-700 placeholder-gray-400 outline-none transition-all focus:border-rose-gold-dark focus:bg-white focus:ring-2 focus:ring-rose-gold-dark/20 shadow-inner"
                     />
                   </div>
 
@@ -622,15 +627,15 @@ function App() {
                     <motion.p 
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mt-3 text-xs font-medium text-rose-gold-dark/90"
+                      className="mt-3 text-xs font-semibold text-rose-gold-dark/95"
                     >
                       {unlockError}
                     </motion.p>
                   )}
 
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: 1.025, shadow: "0 10px 25px rgba(159,18,57,0.2)" }}
+                    whileTap={{ scale: 0.975 }}
                     type="submit"
                     className="mt-6 w-full cursor-pointer rounded-2xl bg-gradient-to-r from-rose-gold-dark to-rose-gold py-4 font-medium text-white shadow-lg hover:shadow-xl transition-all duration-300"
                   >
@@ -654,9 +659,9 @@ function App() {
           >
             {/* Navigation Bar */}
             <header className="sticky top-0 z-30 w-full px-6 py-4 md:px-12">
-              <nav className="glassmorphism flex items-center justify-between rounded-2xl px-6 py-3 shadow-sm max-w-6xl mx-auto border border-white/50">
+              <nav className="glassmorphism flex items-center justify-between rounded-2xl px-6 py-3 shadow-md max-w-6xl mx-auto border border-white/60 bg-white/30 backdrop-blur-xl">
                 <span className="font-serif text-xl font-bold tracking-tight text-gradient-gold">
-                  Ribbca. ✨
+                  Ribbca<span className="text-amber-500">.</span> ✨
                 </span>
                 <div className="flex items-center gap-3">
                   <motion.button
@@ -677,7 +682,7 @@ function App() {
                       </svg>
                     )}
                   </motion.button>
-                  <span className="rounded-full bg-pink-100 px-4 py-1 text-xs font-semibold tracking-wider text-rose-gold-dark uppercase shadow-sm">
+                  <span className="rounded-full bg-rose-gold-dark/10 px-4 py-1 text-xs font-semibold tracking-wider text-rose-gold-dark uppercase shadow-sm border border-rose-gold-dark/20">
                     Birthday Edition
                   </span>
                 </div>
@@ -704,10 +709,12 @@ function App() {
                     <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-pink-200/50 to-amber-200/30 opacity-70 blur-xl group-hover:opacity-100 transition-opacity duration-500" />
                     
                     <motion.div 
-                      whileHover={{ scale: 1.02 }}
-                      className="relative rotate-[-2deg] hover:rotate-0 transition-all duration-500 ease-out bg-white p-4 pb-8 polaroid-shadow border border-rose-100/50 rounded-lg max-w-[320px] md:max-w-[340px]"
+                      className="relative bg-white p-4 pb-8 polaroid-shadow border border-rose-100/50 rounded-lg max-w-[320px] md:max-w-[340px] animate-float relative"
                     >
-                      <div className="overflow-hidden rounded-md bg-stone-100 aspect-[4/5]">
+                      {/* Realistic Gold Pin Clip on Polaroid */}
+                      <div className="gold-foil w-12 h-3.5 absolute -top-1.5 left-1/2 -translate-x-1/2 -rotate-3 rounded-md shadow-md z-10 border border-amber-600/30" />
+                      
+                      <div className="overflow-hidden rounded-md bg-stone-100 aspect-[4/5] border border-stone-100">
                         <img
                           src={portraitImg}
                           alt="Ribbu Portrait"
@@ -729,64 +736,69 @@ function App() {
                   variants={itemVariants}
                   className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2 text-center lg:text-left"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-widest text-teal-700/80 mb-3 block">
-                    💖 Celebrating Ribbca
-                  </span>
-                  <h2 className="font-serif text-3xl md:text-5xl font-semibold leading-tight text-gray-800 tracking-tight">
-                    Wishing the most beautiful soul,{' '}
-                    <span className="text-gradient-gold font-bold">Ribbu</span>, a
-                    wonderful year ahead.
-                  </h2>
-                  <p className="mt-6 text-base md:text-lg text-gray-600 leading-relaxed font-light">
-                    Ribbu, your presence is like a soft summer breeze—warm, comforting, and full of life. You bring an irreplaceable warmth to the world, turning ordinary moments into extraordinary memories. Today is a celebration of your dreams, your kind heart, and the magic you bring into his life. May this year ahead be filled with laughter that echoes, dreams that come true, and endless moments where you feel as loved and cherished as you truly are.
-                  </p>
-                  <div className="mt-8 flex justify-center lg:justify-start">
-                    <div className="inline-flex items-center gap-2 rounded-2xl bg-white/60 border border-pink-100 px-4 py-2 text-xs font-medium text-gray-600 shadow-sm backdrop-blur-md">
-                      <span>🎂 July 21, 2026</span>
-                      <span className="text-gray-300">|</span>
-                      <span>✨ Made with Love</span>
+                  <div className="glassmorphism-luxury rounded-3xl p-8 md:p-10 border border-white/60 shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-pink-100/30 rounded-full filter blur-xl pointer-events-none" />
+                    
+                    <span className="text-xs font-bold uppercase tracking-widest text-rose-gold-dark mb-3 block">
+                      💖 Celebrating Ribbca
+                    </span>
+                    <h2 className="font-serif text-3xl md:text-5xl font-semibold leading-tight text-gray-800 tracking-tight">
+                      Wishing the most beautiful soul,{' '}
+                      <span className="text-shimmer font-bold underline decoration-amber-400/50 decoration-wavy underline-offset-8">Ribbu</span>, a
+                      wonderful year ahead.
+                    </h2>
+                    <p className="mt-8 text-base md:text-lg text-gray-600 leading-relaxed font-light">
+                      Ribbu, your presence is like a soft summer breeze—warm, comforting, and full of life. You bring an irreplaceable warmth to the world, turning ordinary moments into extraordinary memories. Today is a celebration of your dreams, your kind heart, and the magic you bring into his life. May this year ahead be filled with laughter that echoes, dreams that come true, and endless moments where you feel as loved and cherished as you truly are.
+                    </p>
+                    <div className="mt-8 flex justify-center lg:justify-start">
+                      <div className="inline-flex items-center gap-2 rounded-2xl bg-white/60 border border-pink-100 px-4 py-2 text-xs font-semibold text-gray-600 shadow-sm backdrop-blur-md">
+                        <span className="text-rose-gold-dark">🎂 July 21, 2026</span>
+                        <span className="text-gray-300">|</span>
+                        <span>✨ Made with Love</span>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
 
               </section>
 
-              {/* INTERACTIVE REVEAL CARDS */}
-              <motion.section variants={itemVariants} className="mt-20 md:mt-28">
+              {/* INTERACTIVE REVEAL CARDS (Frosted Envelopes) */}
+              <motion.section variants={itemVariants} className="mt-24 md:mt-32">
                 <div className="text-center mb-12">
                   <span className="text-3xl">🎁</span>
                   <h3 className="font-serif text-2xl md:text-3xl font-semibold text-gray-800 mt-2">
                     Click to Reveal Secrets
                   </h3>
                   <p className="text-sm text-gray-500 mt-1 font-light">
-                    Tap on each card to read a personal message written just for you.
+                    Tap on each luxury card to read a handwritten note from the heart.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                   {cardData.map((card) => (
                     <motion.button
-                      whileHover={{ y: -8, scale: 1.015 }}
-                      whileTap={{ scale: 0.985 }}
+                      whileHover={{ y: -10, scale: 1.02, shadow: "0 20px 30px rgba(159,18,57,0.06)" }}
+                      whileTap={{ scale: 0.98 }}
                       key={card.id}
                       onClick={() => setActiveModal(card)}
-                      className={`group text-left border rounded-3xl p-6 shadow-sm cursor-pointer transition-all duration-300 ${card.color}`}
+                      className={`group text-left border rounded-3xl p-8 cursor-pointer transition-all duration-300 glassmorphism-luxury shadow-md hover:border-rose-gold-dark/40 ${card.color}`}
                     >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-inner text-xl mb-6">
-                        {card.id === 1 ? '✨' : card.id === 2 ? '🚀' : '❤️'}
+                      {/* Wax Seal Visual element */}
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 text-white shadow-md text-lg mb-6 border border-amber-600/30">
+                        ❤️
                       </div>
-                      <span className="text-xs font-semibold tracking-wider uppercase block mb-1">
+                      <span className="text-xs font-bold tracking-wider uppercase block mb-1 text-rose-gold-dark/80">
                         {card.tag}
                       </span>
-                      <h4 className="font-serif text-xl font-semibold text-gray-800 group-hover:text-gradient-gold transition-colors duration-300">
+                      <h4 className="font-serif text-xl font-bold text-gray-800 group-hover:text-rose-gold-dark transition-colors duration-300">
                         {card.title}
                       </h4>
-                      <p className="mt-2 text-sm text-gray-500 font-light leading-relaxed">
+                      <p className="mt-3 text-sm text-gray-500 font-light leading-relaxed">
                         {card.desc}
                       </p>
-                      <div className="mt-6 flex items-center gap-1 text-xs font-medium opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-                        <span>Click to read</span>
-                        <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      <div className="mt-8 flex items-center gap-1.5 text-xs font-semibold text-rose-gold-dark/70 group-hover:text-rose-gold-dark transition-colors duration-300">
+                        <span>Read handwritten note</span>
+                        <span className="transition-transform duration-300 group-hover:translate-x-1.5">
                           →
                         </span>
                       </div>
@@ -796,26 +808,28 @@ function App() {
               </motion.section>
 
               {/* DYNAMIC CAKE BANNER BUTTON */}
-              <motion.section variants={itemVariants} className="mt-24 pb-16 text-center">
-                <div className="glassmorphism max-w-2xl mx-auto rounded-3xl p-8 border border-pink-100 flex flex-col items-center">
+              <motion.section variants={itemVariants} className="mt-28 pb-16 text-center">
+                <div className="glassmorphism-luxury max-w-2xl mx-auto rounded-3xl p-8 border border-pink-100 shadow-2xl relative overflow-hidden">
+                  <div className="absolute top-[-30px] left-[-30px] w-24 h-24 bg-amber-100 rounded-full filter blur-xl" />
+                  
                   <motion.span 
-                    animate={{ y: [0, -10, 0] }}
+                    animate={{ y: [0, -12, 0] }}
                     transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                    className="text-4xl"
+                    className="text-5xl inline-block"
                   >
                     🎂
                   </motion.span>
-                  <h3 className="font-serif text-2xl font-semibold text-gray-800 mt-3">
+                  <h3 className="font-serif text-2xl md:text-3xl font-semibold text-gray-800 mt-4">
                     Time for the Cake Cutting Ceremony!
                   </h3>
-                  <p className="text-sm text-gray-500 mt-1 max-w-md font-light">
+                  <p className="text-sm text-gray-500 mt-2 max-w-md mx-auto font-light">
                     There is a special candle waiting to be blown out. Make a wish and let's cut the cake!
                   </p>
                   <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                    whileHover={{ scale: 1.04, shadow: "0 10px 30px rgba(217,119,6,0.25)" }}
+                    whileTap={{ scale: 0.96 }}
                     onClick={() => setStage(3)}
-                    className="mt-6 cursor-pointer rounded-2xl bg-gradient-to-r from-rose-gold-dark via-rose-gold to-amber-500 px-8 py-4 font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="mt-8 cursor-pointer rounded-2xl bg-gradient-to-r from-rose-gold-dark via-rose-gold to-amber-500 px-8 py-4 font-bold text-white shadow-lg transition-all duration-300 border border-amber-600/20"
                   >
                     Enter Cake Cutting Stage 🍰✨
                   </motion.button>
@@ -845,14 +859,14 @@ function App() {
           >
             {/* Navigation Bar for Cake Ceremony */}
             <header className="sticky top-0 z-30 w-full px-6 py-4 md:px-12">
-              <nav className="glassmorphism flex items-center justify-between rounded-2xl px-6 py-3 shadow-sm max-w-3xl mx-auto border border-white/50">
+              <nav className="glassmorphism flex items-center justify-between rounded-2xl px-6 py-3 shadow-md max-w-3xl mx-auto border border-white/50 bg-white/30 backdrop-blur-xl">
                 <motion.button
-                  whileHover={{ x: -3 }}
+                  whileHover={{ x: -4 }}
                   onClick={() => {
                     stopMicDetection()
                     setStage(2)
                   }}
-                  className="flex items-center gap-1.5 text-sm font-medium text-rose-gold-dark hover:text-rose-gold transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 text-sm font-semibold text-rose-gold-dark hover:text-rose-gold transition-colors cursor-pointer"
                 >
                   <span>←</span>
                   <span>Back to Spotlight</span>
@@ -893,7 +907,7 @@ function App() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: 'spring', damping: 20 }}
-                className="relative flex flex-col items-center justify-center p-8 bg-white/40 rounded-3xl border border-white/50 glassmorphism w-full shadow-lg mb-8"
+                className="relative flex flex-col items-center justify-center p-8 bg-white/40 rounded-3xl border border-white/60 glassmorphism w-full shadow-2xl mb-8"
               >
                 
                 {/* The Cake & Candle */}
@@ -903,7 +917,7 @@ function App() {
                   {!isCandleBlownOut && (
                     <div 
                       onClick={blowOutCandle}
-                      className="absolute bottom-40 w-4 h-16 bg-gradient-to-t from-pink-300 to-pink-400 rounded-full flex flex-col items-center cursor-pointer group"
+                      className="absolute bottom-40 w-4 h-16 bg-gradient-to-t from-pink-300 to-pink-400 rounded-full flex flex-col items-center cursor-pointer group z-10"
                       title="Click to blow out!"
                     >
                       {/* Wax lines */}
@@ -920,7 +934,7 @@ function App() {
 
                   {/* Smoke when blown out but not cut yet */}
                   {isCandleBlownOut && !isCakeCut && (
-                    <div className="absolute bottom-40 w-4 h-16 bg-stone-300 rounded-full flex flex-col items-center">
+                    <div className="absolute bottom-40 w-4 h-16 bg-stone-300 rounded-full flex flex-col items-center z-10">
                       {/* Wick */}
                       <div className="absolute -top-1.5 w-[2px] h-2 bg-stone-900" />
                       {/* Smoke Trail */}
@@ -932,28 +946,29 @@ function App() {
                   <div 
                     onClick={isCandleBlownOut ? cutCake : blowOutCandle}
                     className={`w-36 h-12 bg-pink-300 rounded-t-2xl relative border-b-2 border-pink-400/30 flex items-center justify-around px-2 shadow-inner transition-transform duration-500 cursor-pointer ${
-                      isCakeCut ? '-translate-x-3' : ''
+                      isCakeCut ? '-translate-x-4 border-r border-rose-300 shadow-[inset_-2px_-2px_6px_rgba(0,0,0,0.1)]' : ''
                     }`}
                   >
-                    <div className="w-3.5 h-3.5 bg-rose-500 rounded-full" />
-                    <div className="w-3.5 h-3.5 bg-rose-500 rounded-full" />
-                    <div className="w-3.5 h-3.5 bg-rose-500 rounded-full" />
+                    <div className="w-3.5 h-3.5 bg-rose-500 rounded-full shadow-sm" />
+                    <div className="w-3.5 h-3.5 bg-rose-500 rounded-full shadow-sm" />
+                    <div className="w-3.5 h-3.5 bg-rose-500 rounded-full shadow-sm" />
                     
                     {isCakeCut && (
                       <div className="absolute inset-y-0 right-0 w-[4px] bg-amber-900/50 shadow-inner" />
                     )}
                   </div>
 
-                  {/* Cake Middle Layer */}
+                  {/* Cake Middle Layer (with frosting drips) */}
                   <div 
                     onClick={isCandleBlownOut ? cutCake : blowOutCandle}
                     className={`w-44 h-14 bg-amber-50 relative border-b-2 border-amber-200/40 flex items-center justify-around shadow-sm transition-transform duration-500 cursor-pointer ${
-                      isCakeCut ? 'translate-x-3' : ''
+                      isCakeCut ? 'translate-x-4 border-l border-amber-100 shadow-[inset_2px_2px_6px_rgba(0,0,0,0.08)]' : ''
                     }`}
                   >
-                    <div className="absolute top-0 left-6 w-3 h-4 bg-amber-50 rounded-b-full shadow-sm" />
-                    <div className="absolute top-0 left-16 w-3.5 h-5 bg-amber-50 rounded-b-full shadow-sm" />
-                    <div className="absolute top-0 left-28 w-3 h-4 bg-amber-50 rounded-b-full shadow-sm" />
+                    {/* Decorative frosting drip curves */}
+                    <div className="absolute top-0 left-6 w-3.5 h-4.5 bg-amber-50 frosting-drip shadow-sm" />
+                    <div className="absolute top-0 left-16 w-4 h-6.5 bg-amber-50 frosting-drip shadow-sm" />
+                    <div className="absolute top-0 left-28 w-3.5 h-4.5 bg-amber-50 frosting-drip shadow-sm" />
 
                     <div className="w-4 h-4 bg-rose-400 rounded-full shadow-inner" />
                     <div className="w-4 h-4 bg-rose-400 rounded-full shadow-inner" />
@@ -967,7 +982,7 @@ function App() {
                   <div 
                     onClick={isCandleBlownOut ? cutCake : blowOutCandle}
                     className={`w-52 h-16 bg-pink-400 rounded-b-lg relative flex items-center justify-around border-t border-pink-300 shadow-md transition-transform duration-500 cursor-pointer ${
-                      isCakeCut ? '-translate-x-3' : ''
+                      isCakeCut ? '-translate-x-4 border-r border-rose-400 shadow-[inset_-2px_-2px_6px_rgba(0,0,0,0.15)]' : ''
                     }`}
                   >
                     <div className="absolute top-2 left-6 w-2.5 h-1 bg-yellow-200 rounded-full rotate-45" />
@@ -980,21 +995,29 @@ function App() {
                     )}
                   </div>
 
-                  {/* Cake Plate */}
-                  <div className="w-64 h-3 bg-stone-200/90 rounded-full shadow-sm border border-stone-300/30" />
-                  <div className="w-24 h-6 bg-stone-300/80 rounded-b-2xl shadow-inner border-t border-stone-400/20" />
+                  {/* Plate with Gold Rim */}
+                  <div className="w-64 h-3 bg-stone-100 rounded-full shadow-md border-t-2 border-amber-400 relative">
+                    {/* Inner gold circular line */}
+                    <div className="absolute inset-x-4 inset-y-[1px] border border-amber-300/40 rounded-full pointer-events-none" />
+                  </div>
+                  <div className="w-24 h-6 bg-stone-200 rounded-b-2xl shadow-inner border-t border-stone-300/30" />
                 </div>
 
-                {/* Knife indicator when ready to cut */}
+                {/* Slicing Knife with bounce */}
                 {isCandleBlownOut && !isCakeCut && (
                   <motion.div 
-                    animate={{ y: [0, -12, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.2 }}
-                    className="absolute top-20 right-16 text-3xl pointer-events-none"
+                    animate={{ y: [0, -12, 0], rotate: [0, 8, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+                    className="absolute top-20 right-16 text-3xl pointer-events-none drop-shadow-md z-25"
                     title="Tap cake to cut!"
                   >
                     🔪
                   </motion.div>
+                )}
+                
+                {/* Golden Slice Glow Line */}
+                {isCandleBlownOut && !isCakeCut && (
+                  <div className="absolute bottom-[44px] w-[2px] h-[130px] bg-gradient-to-t from-transparent via-amber-400 to-transparent shadow-[0_0_10px_#f59e0b] animate-pulse pointer-events-none" />
                 )}
               </motion.div>
 
@@ -1003,7 +1026,7 @@ function App() {
                 {!isCandleBlownOut ? (
                   <div className="flex flex-col items-center">
                     <motion.button
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, shadow: "0 5px 15px rgba(0,0,0,0.08)" }}
                       whileTap={{ scale: 0.95 }}
                       onClick={isListening ? stopMicDetection : startMicDetection}
                       className={`px-5 py-3 cursor-pointer rounded-2xl text-xs font-semibold tracking-wider uppercase transition-all duration-300 shadow-md ${
@@ -1015,14 +1038,23 @@ function App() {
                       {isListening ? 'Stop Mic 🎤' : 'Use Microphone 🎤'}
                     </motion.button>
 
+                    {/* Dynamic Audio Waveform Visualizer */}
                     {isListening && (
-                      <div className="mt-3 flex flex-col items-center w-full max-w-[200px]">
-                        <span className="text-[10px] uppercase font-bold text-gray-400">Mic Input Level</span>
-                        <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mt-1.5">
-                          <div 
-                            className="h-full bg-gradient-to-r from-teal-400 to-rose-gold-dark transition-all duration-75"
-                            style={{ width: `${Math.min(100, (micLevel / 60) * 100)}%` }}
-                          />
+                      <div className="mt-5 flex flex-col items-center w-full max-w-[240px]">
+                        <span className="text-[9px] uppercase font-bold text-gray-400 tracking-wider">Blowing Input Wave</span>
+                        <div className="flex items-center justify-center h-8 mt-2">
+                          {[...Array(9)].map((_, i) => {
+                            // Synthesize height fluctuations based on micLevel
+                            const factor = 1 - Math.abs(i - 4) * 0.18; // peak center
+                            const h = isListening ? Math.max(4, micLevel * 0.7 * factor * (Math.random() * 0.4 + 0.8)) : 4;
+                            return (
+                              <div
+                                key={i}
+                                className="waveform-bar"
+                                style={{ height: `${h}px` }}
+                              />
+                            )
+                          })}
                         </div>
                       </div>
                     )}
@@ -1045,10 +1077,10 @@ function App() {
                 ) : !isCakeCut ? (
                   <div className="flex flex-col items-center">
                     <motion.button
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, shadow: "0 10px 20px rgba(0,0,0,0.15)" }}
                       whileTap={{ scale: 0.95 }}
                       onClick={cutCake}
-                      className="px-6 py-3 cursor-pointer rounded-2xl bg-gray-900 text-white hover:bg-gray-800 text-sm font-semibold tracking-wide transition-all shadow-md"
+                      className="px-6 py-3.5 cursor-pointer rounded-2xl bg-gray-900 text-white hover:bg-gray-800 text-sm font-semibold tracking-wide transition-all shadow-md"
                     >
                       Cut the Cake! 🔪🍰
                     </motion.button>
@@ -1058,7 +1090,7 @@ function App() {
                     <motion.div 
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="glassmorphism p-5 rounded-2xl border border-pink-100 max-w-sm mb-4"
+                      className="glassmorphism-luxury p-6 rounded-2xl border border-pink-100 max-w-sm mb-4"
                     >
                       <p className="font-serif italic text-base text-gray-700 leading-relaxed">
                         "Happy Birthday to the one who makes his world brighter. May your year be filled with sweetest moments, Ribbu!"
@@ -1088,7 +1120,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* SLEEK CUSTOM MODAL */}
+      {/* SLEEK CUSTOM ENVELOPE MODAL */}
       <AnimatePresence>
         {activeModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -1098,53 +1130,51 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveModal(null)}
-              className="absolute inset-0 bg-stone-900/10 backdrop-blur-md"
+              className="absolute inset-0 bg-stone-900/20 backdrop-blur-md"
             />
             
-            {/* Modal Container */}
+            {/* Stationery Envelope Card Container */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.85, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 150 }}
-              className="relative w-full max-w-lg transform rounded-3xl bg-white p-8 shadow-2xl border border-rose-100 z-10"
+              exit={{ opacity: 0, scale: 0.85, y: 50 }}
+              transition={{ type: 'spring', damping: 24, stiffness: 120 }}
+              className="relative w-full max-w-lg transform rounded-3xl bg-[#fffdfa] p-8 md:p-10 shadow-2xl border-4 border-double border-rose-200/60 z-10 overflow-hidden"
             >
-              <div className="flex flex-col">
-                <div className="flex items-center justify-between">
+              {/* Gold foil decorative line on envelope */}
+              <div className="absolute top-0 inset-x-0 h-1.5 gold-foil" />
+              
+              <div className="flex flex-col relative z-10">
+                <div className="flex items-center justify-between pb-4 border-b border-stone-200/50">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl">
-                      {activeModal.id === 1 ? '✨' : activeModal.id === 2 ? '🚀' : '❤️'}
-                    </span>
-                    <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
-                      {activeModal.tag.substring(2)}
+                    <span className="text-2xl text-amber-500">💌</span>
+                    <span className="text-xs font-bold tracking-widest uppercase text-rose-gold-dark/70">
+                      Handwritten Note
                     </span>
                   </div>
                   <button
                     onClick={() => setActiveModal(null)}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-stone-50 text-gray-400 hover:bg-stone-100 hover:text-gray-600 transition-colors cursor-pointer"
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-stone-50 text-gray-400 hover:bg-stone-100 hover:text-gray-600 transition-colors cursor-pointer border border-stone-100"
                   >
                     ✕
                   </button>
                 </div>
 
-                <h3 className="font-serif text-2xl font-semibold text-gray-800 mt-5">
-                  {activeModal.title}
-                </h3>
-                
-                <div className="mt-4 border-l-2 border-rose-gold/60 pl-4 py-1">
-                  <p className="font-serif text-lg leading-relaxed text-gray-700 italic">
+                <div className="mt-8 text-center px-2 py-4">
+                  <p className="font-serif text-xl md:text-2xl leading-loose text-gray-800 italic font-light">
                     "{activeModal.detail}"
                   </p>
                 </div>
 
-                <div className="mt-8 flex justify-end">
+                <div className="mt-8 pt-4 border-t border-stone-100 flex justify-between items-center">
+                  <span className="font-serif italic text-xs text-gray-400">Written with love, for Ribbu</span>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setActiveModal(null)}
-                    className="cursor-pointer rounded-xl bg-gray-900 px-5 py-3 text-xs font-medium text-white hover:bg-gray-800 transition-colors shadow-sm"
+                    className="cursor-pointer rounded-xl bg-rose-gold-dark px-5 py-2.5 text-xs font-semibold text-white hover:bg-rose-gold-dark/90 transition-colors shadow-sm border border-rose-gold-dark/20"
                   >
-                    Close Message
+                    Fold Letter ✉️
                   </motion.button>
                 </div>
               </div>
