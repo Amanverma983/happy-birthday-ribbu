@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import portraitImg from './assets/ribbu-portrait.png'
+import wisherImg from './assets/wisher-portrait.png'
+import wisherSong from './assets/wisher-song.mp3'
 
 // Custom Canvas Confetti Component
 function ConfettiCanvas({ trigger }) {
@@ -262,8 +264,9 @@ function App() {
   const [shake, setShake] = useState(false)
   const [activeModal, setActiveModal] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [currentBgm, setCurrentBgm] = useState('instrumental')
-  
+  const [currentBgm, setCurrentBgm] = useState('instrumental') // 'instrumental', 'vocals', or 'wisher'
+  const [isWisherMusicPlayerOpen, setIsWisherMusicPlayerOpen] = useState(false)
+
   // Audio sources and fallbacks
   const [bgmSource, setBgmSource] = useState("https://raw.githubusercontent.com/ayusharma/birthday/master/hbd.mp3")
   const [cakeMusicIndex, setCakeMusicIndex] = useState(0)
@@ -384,6 +387,22 @@ function App() {
         setBgmSource(cakeMusicList[nextIndex])
       }
     }
+  }
+
+  // Plays His Dedicated Hindi song & opens player
+  const playWisherSong = () => {
+    setBgmSource(wisherSong)
+    setIsPlaying(true)
+    setCurrentBgm('wisher')
+    setIsWisherMusicPlayerOpen(true)
+    setTriggerConfetti(prev => !prev)
+  }
+
+  const closeWisherPlayer = () => {
+    setIsWisherMusicPlayerOpen(false)
+    // Restore soft guitar BGM
+    setBgmSource("https://raw.githubusercontent.com/ayusharma/birthday/master/hbd.mp3")
+    setCurrentBgm('instrumental')
   }
 
   // Stage 3 Microphone blow detection logic
@@ -697,34 +716,71 @@ function App() {
               className="mx-auto max-w-6xl px-6 py-8 md:px-12"
             >
               
-              {/* HERO SECTION & PORTRAIT STAND */}
+              {/* HERO SECTION & DUAL PORTRAITS STAND */}
               <section className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-center pt-4 md:pt-10">
                 
-                {/* Polaroid Frame column */}
+                {/* Two Polaroids side-by-side / overlapping column */}
                 <motion.div 
                   variants={itemVariants}
-                  className="lg:col-span-5 flex justify-center order-2 lg:order-1"
+                  className="lg:col-span-6 flex flex-col sm:flex-row items-center justify-center gap-6 order-2 lg:order-1"
                 >
+                  {/* Polaroid 1: Ribbu */}
                   <div className="group relative">
-                    <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-pink-200/50 to-amber-200/30 opacity-70 blur-xl group-hover:opacity-100 transition-opacity duration-500" />
-                    
+                    <div className="absolute -inset-3 rounded-3xl bg-pink-200/40 opacity-70 blur-lg group-hover:opacity-100 transition-opacity" />
                     <motion.div 
-                      className="relative bg-white p-4 pb-8 polaroid-shadow border border-rose-100/50 rounded-lg max-w-[320px] md:max-w-[340px] animate-float relative"
+                      whileHover={{ scale: 1.03, rotate: 0 }}
+                      className="relative rotate-[-3deg] bg-white p-3.5 pb-6 polaroid-shadow border border-rose-100/50 rounded-lg max-w-[240px] transition-all duration-300"
                     >
-                      {/* Realistic Gold Pin Clip on Polaroid */}
-                      <div className="gold-foil w-12 h-3.5 absolute -top-1.5 left-1/2 -translate-x-1/2 -rotate-3 rounded-md shadow-md z-10 border border-amber-600/30" />
-                      
+                      <div className="gold-foil w-10 h-3 absolute -top-1.5 left-1/2 -translate-x-1/2 -rotate-2 rounded-sm shadow-sm z-10" />
                       <div className="overflow-hidden rounded-md bg-stone-100 aspect-[4/5] border border-stone-100">
                         <img
                           src={portraitImg}
                           alt="Ribbu Portrait"
-                          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-103"
                           loading="lazy"
                         />
                       </div>
-                      <div className="mt-5 text-center">
-                        <p className="font-serif italic text-sm text-gray-500 select-none">
-                          The birthday girl in her absolute element ✨
+                      <div className="mt-4 text-center">
+                        <p className="font-serif italic text-xs text-gray-500 select-none">
+                          The Birthday Girl ✨
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Polaroid 2: The Wisher (Him) with play overlay */}
+                  <div className="group relative">
+                    <div className="absolute -inset-3 rounded-3xl bg-amber-100/40 opacity-70 blur-lg group-hover:opacity-100 transition-opacity" />
+                    <motion.div 
+                      whileHover={{ scale: 1.03, rotate: 0 }}
+                      onClick={playWisherSong}
+                      className="relative rotate-[3deg] bg-white p-3.5 pb-6 polaroid-shadow border border-amber-100/50 rounded-lg max-w-[240px] cursor-pointer transition-all duration-300"
+                      title="Click to play his special Hindi song for you!"
+                    >
+                      <div className="gold-foil w-10 h-3 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-2 rounded-sm shadow-sm z-10" />
+                      
+                      <div className="overflow-hidden rounded-md bg-stone-100 aspect-[4/5] border border-stone-100 relative">
+                        <img
+                          src={wisherImg}
+                          alt="Wisher Portrait"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-103"
+                          loading="lazy"
+                        />
+                        {/* Shimmering play icon overlay */}
+                        <div className="absolute inset-0 bg-rose-gold-dark/20 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                          <motion.div 
+                            animate={{ scale: [1, 1.15, 1] }} 
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                            className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg border border-rose-gold-dark/30 text-lg"
+                          >
+                            🎵
+                          </motion.div>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-4 text-center">
+                        <p className="font-serif italic text-xs text-gradient-gold font-bold select-none flex items-center justify-center gap-1">
+                          <span>His Dedication</span> 🎙️
                         </p>
                       </div>
                     </motion.div>
@@ -734,7 +790,7 @@ function App() {
                 {/* Wishes and Birthday Paragraph column */}
                 <motion.div 
                   variants={itemVariants}
-                  className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2 text-center lg:text-left"
+                  className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2 text-center lg:text-left"
                 >
                   <div className="glassmorphism-luxury rounded-3xl p-8 md:p-10 border border-white/60 shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-pink-100/30 rounded-full filter blur-xl pointer-events-none" />
@@ -747,12 +803,22 @@ function App() {
                       <span className="text-shimmer font-bold underline decoration-amber-400/50 decoration-wavy underline-offset-8">Ribbu</span>, a
                       wonderful year ahead.
                     </h2>
-                    <p className="mt-8 text-base md:text-lg text-gray-600 leading-relaxed font-light">
+                    <p className="mt-8 text-base md:text-lg text-gray-600 leading-relaxed font-light font-sans">
                       Ribbu, your presence is like a soft summer breeze—warm, comforting, and full of life. You bring an irreplaceable warmth to the world, turning ordinary moments into extraordinary memories. Today is a celebration of your dreams, your kind heart, and the magic you bring into his life. May this year ahead be filled with laughter that echoes, dreams that come true, and endless moments where you feel as loved and cherished as you truly are.
                     </p>
-                    <div className="mt-8 flex justify-center lg:justify-start">
-                      <div className="inline-flex items-center gap-2 rounded-2xl bg-white/60 border border-pink-100 px-4 py-2 text-xs font-semibold text-gray-600 shadow-sm backdrop-blur-md">
-                        <span className="text-rose-gold-dark">🎂 July 21, 2026</span>
+                    
+                    {/* Direct button to play his song */}
+                    <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={playWisherSong}
+                        className="cursor-pointer inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-rose-gold-dark to-rose-gold px-5 py-3 text-xs font-bold text-white shadow-md"
+                      >
+                        <span>Listen to His Song</span> 🎙️💖
+                      </motion.button>
+                      <div className="inline-flex items-center gap-2 rounded-2xl bg-white/60 border border-pink-100 px-4 py-3 text-xs font-semibold text-gray-600 shadow-sm backdrop-blur-md">
+                        <span className="text-rose-gold-dark">🎂 July 21</span>
                         <span className="text-gray-300">|</span>
                         <span>✨ Made with Love</span>
                       </div>
@@ -1044,8 +1110,8 @@ function App() {
                         <span className="text-[9px] uppercase font-bold text-gray-400 tracking-wider">Blowing Input Wave</span>
                         <div className="flex items-center justify-center h-8 mt-2">
                           {[...Array(9)].map((_, i) => {
-                            // Synthesize height fluctuations based on micLevel
-                            const factor = 1 - Math.abs(i - 4) * 0.18; // peak center
+                            // Synthesize fluctuations
+                            const factor = 1 - Math.abs(i - 4) * 0.18;
                             const h = isListening ? Math.max(4, micLevel * 0.7 * factor * (Math.random() * 0.4 + 0.8)) : 4;
                             return (
                               <div
@@ -1117,6 +1183,98 @@ function App() {
               </p>
             </footer>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* DEDICATED HIS SONG LYRICS OVERLAY */}
+      <AnimatePresence>
+        {isWisherMusicPlayerOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeWisherPlayer}
+              className="absolute inset-0 bg-stone-950/60 backdrop-blur-md"
+            />
+            
+            {/* Music Karaoke Player Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              transition={{ type: 'spring', damping: 26, stiffness: 120 }}
+              className="relative w-full max-w-md transform rounded-3xl bg-gradient-to-b from-stone-900 to-stone-950 p-6 md:p-8 text-white shadow-2xl border border-white/10 z-10 text-center"
+            >
+              <button
+                onClick={closeWisherPlayer}
+                className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors cursor-pointer text-xl"
+              >
+                ✕
+              </button>
+
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+                🎙️ Now Singing For You
+              </span>
+
+              {/* Album Art Representation (Rotating disk) */}
+              <div className="flex justify-center mt-6">
+                <motion.div 
+                  animate={{ rotate: isPlaying ? 360 : 0 }}
+                  transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+                  className="w-36 h-36 rounded-full border-4 border-amber-500/40 relative shadow-2xl overflow-hidden flex items-center justify-center bg-stone-800"
+                >
+                  <img src={wisherImg} alt="Wisher circular" className="w-full h-full object-cover opacity-80" />
+                  {/* Center circle */}
+                  <div className="absolute w-8 h-8 bg-stone-950 rounded-full border-2 border-amber-500 flex items-center justify-center">
+                    <div className="w-2.5 h-2.5 bg-white rounded-full" />
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Song Details */}
+              <h3 className="font-serif text-xl font-bold mt-5 text-gradient-gold">
+                "Pal Pal Dil Ke Paas..." ❤️
+              </h3>
+              <p className="text-xs text-gray-400 mt-1">A Special Hindi Song dedicated by Him</p>
+
+              {/* Scrolling Lyrics (Mock Spotify effect) */}
+              <div className="mt-8 h-32 overflow-hidden flex flex-col justify-center gap-4 relative">
+                <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-stone-950 to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-stone-950 to-transparent pointer-events-none" />
+                
+                <motion.div 
+                  animate={{ y: [40, -10, -60, -110, -160, -210, -260] }}
+                  transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
+                  className="flex flex-col gap-8 text-center text-sm px-4"
+                >
+                  <p className="font-serif text-lg font-semibold text-white">Pal pal dil ke paas tum rehti ho... ✨</p>
+                  <p className="font-serif text-lg font-semibold text-white">Jeevan meethi pyaas tum kehti ho... 🌹</p>
+                  <p className="font-serif text-lg font-semibold text-white">Har shyam tumhari yaadon mein dhalti hai... 🌅</p>
+                  <p className="font-serif text-lg font-semibold text-white">Tum door chali jaati ho to saans thamti hai... 🥺</p>
+                  <p className="font-serif text-lg font-semibold text-white">Tum hi meri saanso ka sangeet ho... 💖</p>
+                  <p className="font-serif text-xl font-extrabold text-amber-400">Happy Birthday, my favorite person, Ribbu! 🎉❤️</p>
+                </motion.div>
+              </div>
+
+              {/* Mini Audio Controls */}
+              <div className="mt-8 flex justify-center items-center gap-6">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={togglePlay}
+                  className="w-14 h-14 bg-amber-500 hover:bg-amber-400 text-stone-950 rounded-full flex items-center justify-center font-bold text-xl shadow-lg cursor-pointer"
+                >
+                  {isPlaying ? '⏸️' : '▶️'}
+                </motion.button>
+              </div>
+
+              <p className="text-[10px] text-gray-500 mt-6 leading-relaxed">
+                Tip: copy your own voice note/recording as `wisher-song.mp3` inside the assets folder to play your own voice!
+              </p>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
